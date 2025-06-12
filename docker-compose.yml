@@ -1,0 +1,20 @@
+services:
+  shoppilot.api:
+    image: ${DOCKER_REGISTRY-}shoppilotapi
+    build:
+      context: .
+      dockerfile: ShopPilot.Api/Dockerfile
+    ports:
+     - 5000:8080
+     - 5001:8081
+  
+  shoppilot.postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shoppilot
+    volumes:
+     - ./.containers/pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
